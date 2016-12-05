@@ -2,7 +2,6 @@
 
 #include "chrono.h"
 
-#include <mtrace>
 #include <chrono>
 
 struct malloc_chrono

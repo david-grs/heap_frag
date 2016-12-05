@@ -95,5 +95,3 @@ struct chrono
    private:
     uint64_t m_start;
 };
-
-}

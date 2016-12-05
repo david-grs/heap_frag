@@ -1,10 +1,13 @@
+#include "chrono.h"
+#include <mtrace>
+
 #include <unordered_map>
 #include <vector>
 #include <map>
 #include <string>
 #include <chrono>
-
 #include <iostream>
+
 #include <malloc.h>
 
 int main()
@@ -20,7 +23,7 @@ int main()
     for (int i = 0; i < Iterations; ++i)
       um.emplace(i, i);
     auto end = std::chrono::system_clock::now();
-    
+
     for (int i = 0; i < Iterations; ++i)
     {
       m.emplace(i, i);
@@ -28,7 +31,7 @@ int main()
       vs.emplace_back('c', (i % 10000));
       vs2.emplace_back('c', (i % 10000));
     }
-    
+
     std::cout << (m.size() + m2.size() + um.size() + vs.size() + vs2.size()) << std::endl;
     std::cout << (end - start).count() << std::endl;
     //std::cout << "after use" << std::endl;
@@ -45,7 +48,7 @@ int main()
     for (int i = 0; i < Iterations; ++i)
       um.emplace(i, i);
     auto end = std::chrono::system_clock::now();
-    
+
     std::cout << um.size() << std::endl;
     std::cout << (end - start).count() << std::endl;
    // std::cout << "after use" << std::endl;

@@ -12,9 +12,9 @@
 
 static constexpr const int Iterations = 4e6;
 
-void benchmark()
+void benchmark_unordered_map_emplace()
 {
-    std::unordered_map<int, double> um;
+    std::unordered_map<int, int> um;
     mtrace<malloc_chrono> mt;
 
     auto start = std::chrono::system_clock::now();
@@ -24,7 +24,7 @@ void benchmark()
 
     malloc_chrono chr = std::get<0>(mt);
 
-    std::cout << "took " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms" << std::endl;
+    std::cout << Iterations << " iterations of unordered_map<int, int>::emplace took " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms" << std::endl;
     std::cout << "time spent in malloc(): " << std::chrono::duration_cast<std::chrono::milliseconds>(chr.malloc_time()).count() << "ms" << std::endl;
     std::cout << "time spent in free(): " << std::chrono::duration_cast<std::chrono::milliseconds>(chr.free_time()).count() << "ms" << std::endl;
     std::cout << "time spent in realloc(): " << std::chrono::duration_cast<std::chrono::milliseconds>(chr.realloc_time()).count() << "ms" << std::endl;
@@ -32,7 +32,7 @@ void benchmark()
 
 void other_benchmarks()
 {
-    std::map<int, double> m, m2;
+    std::map<int, int> m, m2;
     std::vector<std::string> vs, vs2;
 
     for (int i = 0; i < Iterations; ++i)
@@ -46,19 +46,15 @@ void other_benchmarks()
 
 int main()
 {
-    std::cout << "running benchmark first time... ";
-    benchmark();
+    benchmark_unordered_map_emplace();
     // std::cout << "after first benchmark:" << std::endl;
     // malloc_info(0, stdout);
 
-    std::cout << "running some other benchmarks...";
     other_benchmarks();
-    std::cout << "OK" << std::endl;
 
     // std::cout << "after second benchmark:" << std::endl;
     // malloc_info(0, stdout);
-    std::cout << "running first benchmark a second time... ";
-    benchmark();
+    benchmark_unordered_map_emplace();
 
     return 0;
 }
